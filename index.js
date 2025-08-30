@@ -1,3 +1,8 @@
+require("dotenv").config();   // <-- load .env here
+console.log("PORT:", process.env.PORT);
+console.log("MONGO_URI:", process.env.MONGO_URI);
+console.log("SECRET:", process.env.SECRET);
+
 const express=require("express");
 const path = require("path");
 const mongoose= require("mongoose");
@@ -11,9 +16,11 @@ const blogRoute=require("./routes/blog");
 const { checkForAuthenticationCookies } = require("./middlewares/authentication");
 
 const app=express();
-const PORT=8000;
+const PORT = process.env.PORT || 8000;   // <-- use PORT from .env
 
-mongoose.connect("mongodb://localhost:27017/blogify").then(e=>console.log("MongoDB connected"));
+mongoose.connect(process.env.MONGO_URI)   // <-- use MONGO_URI from .env
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 app.set("view engine","ejs");
 app.set("views", path.resolve("./views"));

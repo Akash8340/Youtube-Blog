@@ -1,46 +1,53 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Blogify</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <% if (locals.user) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/blog/add-new">Add Blogs</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Akash Singh
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/users/logout">Logout</a></li>
-              </ul>
-            </li>
-          <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/signup">Create Account</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/signin">Signin</a>
-            </li>
-            <% } %>
-          
-           
-          
-        </ul>
-      </div>
-    </div>
-  </nav>
+<style>
+    .navbar-dark-blue {
+        background-color: #0a2a66 !important; /* deep dark blue */
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-dark-blue shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-uppercase" href="/">Blogify</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <% if (locals.error) { %>
-    <div class="container mt-4">
-    <div class="alert alert-danger" role="alert">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto"> <!-- align items to right -->
+        <li class="nav-item">
+          <a class="nav-link <% if (locals.active === 'home') { %>active<% } %>" href="/">Home</a>
+        </li>
+
+        <% if (locals.user) { %>
+          <li class="nav-item">
+            <a class="nav-link <% if (locals.active === 'add-blog') { %>active<% } %>" href="/blog/add-new">Add Blog</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <%= locals.user?.email || "Account" %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item text-danger fw-semibold" href="/users/logout">Logout</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link <% if (locals.active === 'signup') { %>active<% } %>" href="/users/signup">Create Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <% if (locals.active === 'signin') { %>active<% } %>" href="/users/signin">Signin</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+  <div class="container mt-3">
+    <div class="alert alert-danger shadow-sm rounded-3" role="alert">
       <%= locals.error %>
     </div>
   </div>
-  <% } %>
+<% } %>

@@ -3,27 +3,81 @@
 <head>
     <%- include('./partials/head') %>
     <title>Homepage</title>
+    <style>
+        /* Grid layout */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* Card styling */
+        .blog-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: #ffffff;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Image */
+        .blog-card img {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        /* Title */
+        .blog-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0a2a66; /* dark blue */
+            margin-bottom: 12px;
+        }
+
+        /* Button */
+        .btn-primary {
+            background-color: #0a2a66 !important;
+            border-color: #0a2a66 !important;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: #0c3b99 !important;
+            border-color: #0c3b99 !important;
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+    </style>
 </head>
 <body>
 
     <%- include('./partials/nav') %>
-    <div class="container mt-3">
-        <div class="row row-cols-4">
-        <% blogs.forEach(blog => { %>
-            <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="<%= blog.coverImageURL %>" class="card-img-top" >
-                <div class="card-body">
-                  <h5 class="card-title"><%= blog.title %></h5>
-                  <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+
+    <div class="container mt-4">
+        <div class="blog-grid">
+            <% blogs.forEach(blog => { %>
+                <div class="card blog-card">
+                    <img src="<%= blog.coverImageURL %>" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= blog.title %></h5>
+                        <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+                    </div>
                 </div>
-              </div>
-            </div>
-        <% }) %>
+            <% }) %>
+        </div>
     </div>
-    </div>
+
     <%- include('./partials/script') %>
-    
-   
 </body>
 </html>

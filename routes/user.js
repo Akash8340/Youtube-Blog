@@ -12,6 +12,7 @@ router.get("/signup",(req,res)=>{
 });
 
 router.post('/signin',async(req,res)=>{
+    console.log(process.env.SECRET);
     const { email,password }=req.body;
    try {
     const token=await User.matchPasswordAndGenerateToken(email,password);
