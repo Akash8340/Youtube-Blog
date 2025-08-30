@@ -1,8 +1,4 @@
 require("dotenv").config();   // <-- load .env here
-console.log("PORT:", process.env.PORT);
-console.log("MONGO_URI:", process.env.MONGO_URI);
-console.log("SECRET:", process.env.SECRET);
-
 const express=require("express");
 const path = require("path");
 const mongoose= require("mongoose");
